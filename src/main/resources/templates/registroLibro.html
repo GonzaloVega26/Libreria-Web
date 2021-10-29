@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="/registrarLibro" method="post">
+    <label for="isbn">ISBN</label>
+    <input type="text" name="isbn" id="isbn">
+    <br>
+    <label for="nombre">Nombre</label>
+    <input type="text" name="nombre" id="nombre">
+    <br>
+    <label for="anio">Año Publicacion</label>
+    <input type="number" name="anio" id="anio">
+    <br>
+    <label for="ejemplares">Cantidad Ejemplares</label>
+    <input type="number" name="ejemplares" id="ejemplares">
+    <br>
+    <label for="ejemplaresPrestados">Cantidad Ejemplares Prestados</label>
+    <input type="number" name="ejemplaresPrestados" id="ejemplaresPrestados">
+    <br>
+    <label for="ejemplaresRestantes">Cantidad Ejemplares Restantes</label>
+    <input type="number" name="ejemplaresRestantes" id="ejemplaresRestantes">
+    <br>
+    <label for="idAutor">Autor</label>
+    <select name="idAutor" id="idAutor">
+        <option th:each="autor : ${autores}" th:value="${autor.id}" th:text="|${autor.nombre} ${autor.apellido}|" ></option>
+    </select>
+    <br>
+    <label for="idEditorial">Autor</label>
+    <select name="idEditorial" id="idEditorial">
+        <option th:each="editorial : ${editoriales}" th:value="${editorial.id}" th:text="${editorial.nombre}" ></option>
+    </select>
+<br>
+    <button type="submit">Registrar</button>
+    </form>
+</body>
+</html>
