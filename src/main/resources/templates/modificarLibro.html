@@ -7,32 +7,32 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="/registrarLibro" method="post">
+    <form action="#" th:action="@{/libro/modificarLibro}" th:object="${libro}" method="post">
     <label for="isbn">ISBN</label>
-    <input type="text" name="isbn" id="isbn">
+    <input type="text" name="isbn" th:field="*{isbn}">
     <br>
     <label for="nombre">Nombre</label>
-    <input type="text" name="nombre" id="nombre">
+    <input type="text" name="nombre" th:field="*{nombre}">
     <br>
     <label for="anio">Año Publicacion</label>
-    <input type="number" name="anio" id="anio">
+    <input type="number" name="anio" th:field="*{anio}">
     <br>
     <label for="ejemplares">Cantidad Ejemplares</label>
-    <input type="number" name="ejemplares" id="ejemplares">
+    <input type="number" name="ejemplares" th:field="*{ejemplares}">
     <br>
     <label for="ejemplaresPrestados">Cantidad Ejemplares Prestados</label>
-    <input type="number" name="ejemplaresPrestados" id="ejemplaresPrestados">
+    <input type="number" name="ejemplaresPrestados" th:field="*{ejemplaresPrestados}">
     <br>
     <label for="ejemplaresRestantes">Cantidad Ejemplares Restantes</label>
-    <input type="number" name="ejemplaresRestantes" id="ejemplaresRestantes">
+    <input type="number" name="ejemplaresRestantes" th:field="*{ejemplaresRestantes}">
     <br>
     <label for="idAutor">Autor</label>
-    <select name="idAutor" id="idAutor">
+    <select name="idAutor" th:field="*{autor}">
         <option th:each="autor : ${autores}" th:value="${autor.id}" th:text="|${autor.nombre} ${autor.apellido}|" ></option>
     </select>
     <br>
     <label for="idEditorial">Editorial</label>
-    <select name="idEditorial" id="idEditorial">
+    <select name="idEditorial" th:field="*{editorial}">
         <option th:each="editorial : ${editoriales}" th:value="${editorial.id}" th:text="${editorial.nombre}" ></option>
     </select>
 <br>

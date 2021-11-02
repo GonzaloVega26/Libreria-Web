@@ -1,8 +1,11 @@
 package com.libreriaWebApp.servicios;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.libreriaWebApp.entidades.Autor;
@@ -25,6 +28,12 @@ public class AutorServicio {
 		autorRp.save(autor);
 	}
 	
+	@Transactional
+	public void guardarAutorObj(Autor autor) throws ErrorServicio {
+		validate(autor.getNombre(), autor.getApellido());
+		autorRp.save(autor);
+	}
+	@Transactional
 	public void agregarLibroToAutor(Libro libro) {
 		Autor autor = libro.getAutor();
 		autor.getLibrosEscritos().add(libro);
@@ -47,4 +56,10 @@ public class AutorServicio {
 			throw new ErrorServicio("El autor ya está registrado");
 		}
 	}
+	
+	public List<Autor> buscarTodosAutores() throws ErrorServicio{
+		List<Autor> autores = autorRp.findAll(Sort.by("nombre"));
+		return  autores;
+	}
+	
 }

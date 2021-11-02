@@ -1,17 +1,58 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Bienvenidos</h1>
-    <a href="/registroAutor.html">Registro de Autores</a>
-    <br>
-    <a href="/registroEditorial.html">Registro de Editoriales</a>
-    <br>
-    <a href="/registroLibro.html">Registro de Libros</a>
-</body>
+<html lang="en" 
+xmlns="http://www.w3.org/1999/xhtml"
+xmlns:th="https://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <link rel="stylesheet" th:href="@{/indexcss.css}">
+    <title>Librería Web</title>
+  </head>
+  <body>
+    <div id="big-container">
+      <div id="background">
+        <div class="center">
+          <h1>Librería WEB</h1>
+          <br />
+          <div class="button">
+            <a
+              href="#"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Explora!</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="references">
+      <h1>Registro</h1>
+      <br>
+      <ul>
+        <li>
+          <a class="button" th:href="@{/autor/modificarAutor}">Registro de Autores</a>
+        </li>
+        <li>
+          <a class="button" th:href="@{/editorial/modificarEditorial}">Registro de Editoriales</a>
+        </li>
+        <li>
+          <a class="button" th:href="@{/libro/modificarLibro}">Registro de Libros</a>
+        </li>
+        <li>
+        	<a class = "button"  th:href ="@{/autor/listaAutores}">Lista de Autores</a>
+        </li>
+        
+        <li>
+        	<a class = "button"  th:href ="@{/editorial/listaEditoriales}">Lista de Editoriales</a>
+        </li>
+      </ul>
+
+      <br />
+
+      <br />
+    </div>
+  </body>
 </html>

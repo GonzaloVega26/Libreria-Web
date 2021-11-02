@@ -47,6 +47,21 @@ public class LibroServicio {
 		}
 	
 	}
+	
+	@Transactional
+	public void guardarLibroObj(Libro libro) throws ErrorServicio {
+		validacion(libro.getIsbn(),libro.getNombre(),libro.getAnio(),libro.getEjemplares(),
+				libro.getEjemplaresPrestados(), libro.getEjemplaresRestantes());
+		Optional<Autor> rp1 = autorRp.findById(libro.getAutor().getId());
+		Optional<Editorial> rp2 = editorialRp.findById(libro.getEditorial().getId());
+		if(rp1.isPresent() && rp2.isPresent() ) {
+			libroRp.save(libro);
+			autorSv.agregarLibroToAutor(libro);
+			
+		} else {
+			throw new ErrorServicio("El autor y/o la editorial no son válidos");
+		}
+	}
 
 	private void validacion(String isbn, String nombre, Integer anio, Integer ejemplares, Integer ejemplaresPrestados,
 			Integer ejemplaresRestantes) throws ErrorServicio {

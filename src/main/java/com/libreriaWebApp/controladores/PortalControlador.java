@@ -6,12 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.libreriaWebApp.entidades.Autor;
 import com.libreriaWebApp.entidades.Editorial;
+import com.libreriaWebApp.entidades.Libro;
 import com.libreriaWebApp.errores.ErrorServicio;
 import com.libreriaWebApp.repositorios.AutorRepositorio;
 import com.libreriaWebApp.repositorios.EditorialRepositorio;
@@ -33,55 +35,37 @@ public class PortalControlador {
 	@Autowired
 	private EditorialRepositorio editorialRp;
 	
-	@GetMapping("/index.html")
+	@GetMapping("/")
 	public String index() {
-		return "index.html";
-	}
-
-	@GetMapping("/registroAutor.html")
-	public String registroAutor() {
-		return "registroAutor.html";
+		return "index";
 	}
 	
-	@GetMapping("/registroEditorial.html")
-	public String registroEditorial() {
-		
-		return "registroEditorial.html";
-	}
 	
-	@GetMapping("/registroLibro.html")
+	
+	
+	
+	@GetMapping("/registroLibro")
 	public String registroLibro(ModelMap model) {
 		List<Autor> autores= autorRp.findAll();
 		List<Editorial> editoriales = editorialRp.findAll();
 		model.put("autores", autores);
 		model.put("editoriales", editoriales);
-		return "registroLibro.html";
+	
+		for (Autor u : autores) {
+			autores.size();
+			List<Libro> libros = u.getLibrosEscritos();
+			for (Libro u2 : libros) {
+				System.out.println(u2.getNombre());
+			}
+		}
+		return "registroLibro";
 	}
 	
-	@PostMapping("/registrarAutor")
-	public String registarAutor(@RequestParam String nombre, @RequestParam String apellido, ModelMap model) {
-		try {
-			autorSv.guardarAutor(nombre, apellido);
-		} catch (ErrorServicio e) {
-			e.printStackTrace();
-		model.put("nombre", nombre);
-		model.put("apellido", apellido);
-		return "registroAutor.html";
-		}
-		return "index.html";
-	}
 	
-	@PostMapping("/registrarEditorial")
-	public String registrarEditorial(@RequestParam String nombre, ModelMap model) {
-		try {
-			editorialSv.guardarEditorial(nombre);
-		} catch (ErrorServicio e) {
-			e.printStackTrace();
-			model.put("nombre", nombre);
-			return "registroEditorial.html";
-		}
-		return "index.html";
-	}
+	
+	
+	
+	
 	
 	@PostMapping("/registrarLibro")
 	public String registrarLibro(@RequestParam String isbn, @RequestParam String nombre,
@@ -93,8 +77,9 @@ public class PortalControlador {
 			return "index.html";
 		} catch (Exception e) {
 			e.printStackTrace();
-			return "registroLibro.html";
+			return "registroLibro";
 		}
 	}
+	
 	
 }

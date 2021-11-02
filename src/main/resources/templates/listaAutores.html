@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" 
+xmlns="http://www.w3.org/1999/xhtml"
+xmlns:th="https://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" th:href="@{/listaAutorescss.css}">
+  </head>
+  <body>
+  <h1>Autores</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre y Apellido</th>
+          <th>Modificar</th>
+          <th>Eliminar</th>
+          <th>Libros</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="autor : ${autores}">
+          <td th:text="|${autor.nombre} ${autor.apellido}|"></td>
+
+          <td><a th:href="@{/autor/modificarAutor/} + ${autor.id}">Editar</a></td>
+          <td><a href="#"> Dar de baja</a></td>
+          <td >
+            <ul th:each="libro : ${autor.getLibrosEscritos()}" >
+              <li th:text="${libro.nombre}"></li>
+            </ul>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+     
+   <br/>
+    <div>
+    <a th:href="@{/}">Inicio</a>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en"
+xmlns="http://www.w3.org/1999/xhtml"
+ xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Agrega los datos del autor</h1>
+    <form th:action="@{/autor/guardarAutor}" th:object="${autor}" method="post" >
+    
+    <input type="hidden" name="id" th:field="*{id}">
+     <input type="hidden" name="librosEscritos" th:field="*{librosEscritos}">
+     
+    <label for="nombre">Nombre</label>
+    <input type="text" name="nombre" th:field="*{nombre}">
+    <br/>
+    <label for="apellido">Apellido</label>
+    <input type="text" name="apellido" th:field="*{apellido}">
+       
+    <br/>
+    <hr/>
+        <button type="submit" name="guardar" >Guardar</button>
+        
+    </form>
+
+    <br>
+    <a th:href="@{/}">Inicio</a>| <a th:href="@{/autor/listaAutores}">Volver</a> 
+</body>
+</html>
