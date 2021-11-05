@@ -1,7 +1,7 @@
 package com.libreriaWebApp.servicios;
 
+import java.util.Iterator;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -53,6 +53,36 @@ public class EditorialServicio {
 	
 	public List<Editorial> buscarTodasEditoriales() throws ErrorServicio{
 		List<Editorial> editoriales = editorialRp.findAll(Sort.by("nombre"));
+		Iterator<Editorial> it = editoriales.iterator();
+		while (it.hasNext()) {
+			Editorial editorial = (Editorial) it.next();
+			if(editorial.getAlta() == false) {
+				it.remove();
+			}
+			
+		}
 		return  editoriales;
+	}
+	
+	public void darBajaEditorial(Editorial editorial) throws ErrorServicio {
+		if(editorial == null) {
+			throw new ErrorServicio("La editorial no es válido");
+		}
+		if(editorial.getAlta() == true) {
+			editorial.setAlta(false);
+		}
+		
+		editorialRp.save(editorial);
+	}
+	
+	public void darAltaEditorial(Editorial editorial) throws ErrorServicio {
+		if(editorial == null) {
+			throw new ErrorServicio("La editorial no es válido");
+		}
+		if(editorial.getAlta() == false) {
+			editorial.setAlta(true);
+		}
+		
+		editorialRp.save(editorial);
 	}
 }

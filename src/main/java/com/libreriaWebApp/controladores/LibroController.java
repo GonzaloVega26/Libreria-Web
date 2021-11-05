@@ -13,8 +13,7 @@ import com.libreriaWebApp.entidades.Autor;
 import com.libreriaWebApp.entidades.Editorial;
 import com.libreriaWebApp.entidades.Libro;
 import com.libreriaWebApp.errores.ErrorServicio;
-import com.libreriaWebApp.repositorios.AutorRepositorio;
-import com.libreriaWebApp.repositorios.EditorialRepositorio;
+
 import com.libreriaWebApp.servicios.AutorServicio;
 import com.libreriaWebApp.servicios.EditorialServicio;
 import com.libreriaWebApp.servicios.LibroServicio;
@@ -24,10 +23,7 @@ import com.libreriaWebApp.servicios.LibroServicio;
 public class LibroController {
 	@Autowired
 	LibroServicio libroSv;
-	@Autowired
-	private AutorRepositorio autorRp;
-	@Autowired
-	private EditorialRepositorio editorialRp;
+	
 	@Autowired
 	private AutorServicio autorSv;
 	@Autowired

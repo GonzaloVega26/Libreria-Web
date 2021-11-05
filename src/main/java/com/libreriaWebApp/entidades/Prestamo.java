@@ -22,19 +22,19 @@ public class Prestamo {
 	@OneToOne
 	private Libro libro;
 	@OneToOne
-	private Cliente cliente;
+	private Usuario usuario;
 
 	public Prestamo() {
 		this.alta = true;
 	}
 
-	public Prestamo( Date fechaPrestamo, Date fechaDevolucion, Libro libro, Cliente cliente) {
+	public Prestamo( Date fechaPrestamo, Date fechaDevolucion, Libro libro, Usuario usuario) {
 		
 		this.fechaPrestamo = fechaPrestamo;
 		this.fechaDevolucion = fechaDevolucion;
 		this.alta = true;
 		this.libro = libro;
-		this.cliente = cliente;
+		this.usuario = usuario;
 	}
 
 	public String getId() {
@@ -57,8 +57,8 @@ public class Prestamo {
 		return libro;
 	}
 
-	public Cliente getCliente() {
-		return cliente;
+	public Usuario getCliente() {
+		return usuario;
 	}
 
 	public void setId(String id) {
@@ -81,14 +81,14 @@ public class Prestamo {
 		this.libro = libro;
 	}
 
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
+	public void setCliente(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 	@Override
 	public String toString() {
 		return "Prestamo [id=" + id + ", fechaPrestamo=" + fechaPrestamo + ", fechaDevolucion=" + fechaDevolucion
-				+ ", alta=" + alta + ", libro=" + libro + ", cliente=" + cliente + "]";
+				+ ", alta=" + alta + ", libro=" + libro + ", cliente=" + usuario + "]";
 	}
 
 }

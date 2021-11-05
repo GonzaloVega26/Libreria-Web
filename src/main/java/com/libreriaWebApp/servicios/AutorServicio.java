@@ -1,5 +1,6 @@
 package com.libreriaWebApp.servicios;
 
+import java.util.Iterator;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -59,7 +60,37 @@ public class AutorServicio {
 	
 	public List<Autor> buscarTodosAutores() throws ErrorServicio{
 		List<Autor> autores = autorRp.findAll(Sort.by("nombre"));
+		Iterator<Autor> it = autores.iterator();
+		while (it.hasNext()) {
+			Autor autor = (Autor) it.next();
+			if(autor.getAlta() == false) {
+				it.remove();
+			}
+		}
+		
 		return  autores;
+	}
+	
+	public void darBajaAutor(Autor autor) throws ErrorServicio {
+		if(autor == null) {
+			throw new ErrorServicio("El autor no es válido");
+		}
+		if(autor.getAlta() == true) {
+			autor.setAlta(false);
+		}
+		
+		autorRp.save(autor);
+	}
+	
+	public void darAltaAutor(Autor autor) throws ErrorServicio {
+		if(autor == null) {
+			throw new ErrorServicio("El autor no es válido");
+		}
+		if(autor.getAlta() == false) {
+			autor.setAlta(true);
+		}
+		
+		autorRp.save(autor);
 	}
 	
 }

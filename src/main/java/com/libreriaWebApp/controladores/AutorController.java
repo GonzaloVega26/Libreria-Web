@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.libreriaWebApp.entidades.Autor;
-import com.libreriaWebApp.entidades.Editorial;
+
 import com.libreriaWebApp.errores.ErrorServicio;
 import com.libreriaWebApp.repositorios.AutorRepositorio;
 import com.libreriaWebApp.servicios.AutorServicio;
@@ -25,15 +25,30 @@ public class AutorController {
 
 	@GetMapping("/listaAutores")
 	public String listaAutores(Autor autor, ModelMap model) {
-		List<Autor> autores = autorRp.findAll();
-		model.put("autores", autores);
+		List<Autor> autores;
+		try {
+			autores = autorSv.buscarTodosAutores();
+			model.put("autores", autores);
+		} catch (ErrorServicio e) {
+			e.printStackTrace();
+		}
+		
 		return "listaAutores";
 	}
 	
 	@GetMapping("/modificarAutor/{id}")
 	public String editarAutor(Autor autor, ModelMap model) {
-		autor = autorRp.buscarAutorPorId(autor.getId());
-		model.put("autor", autor);
+		try {
+			System.out.println(autor);
+			autor = autorRp.buscarAutorPorId(autor.getId());
+			autor.getLibrosEscritos().size();
+			System.out.println(autor);
+			model.put("autor", autor);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+		}
+		
 		return "modificarAutor";
 	}
 	
@@ -47,7 +62,7 @@ public class AutorController {
 		try {
 			autorSv.guardarAutorObj(autor);
 		} catch (ErrorServicio e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		return "redirect:/autor/listaAutores";

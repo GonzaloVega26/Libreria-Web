@@ -131,7 +131,7 @@ public class Libro {
 	public String toString() {
 		return "Libro [id=" + id + ", isbn=" + isbn + ", nombre=" + nombre + ", anio=" + anio + ", ejemplares="
 				+ ejemplares + ", ejemplaresPrestados=" + ejemplaresPrestados + ", ejemplaresRestantes="
-				+ ejemplaresRestantes + ", autor=" + autor + ", editorial=" + editorial + ", alta=" + alta + "]";
+				+ ejemplaresRestantes + ", autor=" + autor.getNombre() + " " + autor.getApellido() + ", editorial=" + editorial + ", alta=" + alta + "]";
 	}
 
 }

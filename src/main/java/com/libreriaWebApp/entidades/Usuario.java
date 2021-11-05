@@ -1,13 +1,25 @@
 package com.libreriaWebApp.entidades;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import com.libreriaWebApp.enums.Role;
+
 @Entity
-public class Cliente {
+public class Usuario {
 
 	@Id
 	@GeneratedValue(generator = "uuid")
@@ -15,21 +27,35 @@ public class Cliente {
 	private String id;
 	private Long dni;
 	private String nombre;
+	private String mail;
 	private String apellido;
 	private String telefono;
 	private Boolean alta;
-
-	public Cliente() {
+	@ElementCollection(targetClass=Role.class)
+    @Enumerated(EnumType.STRING) // Possibly optional (I'm not sure) but defaults to ORDINAL.
+    @CollectionTable(name="user_role")
+    @Column(name="role") // Column name in person_interest
+	private List<Role> roles = new ArrayList<Role>();
+	private String clave;
+	public Usuario() {
 		this.alta = true;
+		generaUser();
 	}
 
-	public Cliente( Long dni, String nombre, String apellido, String telefono) {
-		
+	public Usuario(Long dni, String nombre, String apellido, String telefono, String mail) {
+
 		this.dni = dni;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.telefono = telefono;
 		this.alta = true;
+		this.mail = mail;
+		generaUser();
+	}
+
+	private void generaUser(){
+		this.roles.add(Role.ROLE_USER);
+		
 	}
 
 	public String getId() {
@@ -79,7 +105,33 @@ public class Cliente {
 	public void setAlta(Boolean alta) {
 		this.alta = alta;
 	}
+	
+	public String getMail() {
+		return mail;
+	}
 
+	public void setMail(String mail) {
+		this.mail = mail;
+	}
+
+	public String getClave() {
+		return clave;
+	}
+	public List<Role> getRoles() {
+		return roles;
+	}
+
+	
+
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
+	}
+
+	public void setClave(String clave) {
+		this.clave = clave;
+	}
+
+	
 	@Override
 	public String toString() {
 		return "Cliente [id=" + id + ", dni=" + dni + ", nombre=" + nombre + ", apellido=" + apellido + ", telefono="
