@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+
+ <h1>Agrega tus datos</h1>
+    <form th:action="@{/guardarUsuario}" th:object="${usuario}" method="post" >
+    
+    <input type="hidden" name="id" th:field="*{id}">
+    <input type="hidden" name="roles" th:field="*{roles}">
+    
+     
+     
+    <label for="dni">DNI</label>
+    <input type="text" name="dni" th:field="*{dni}">
+    <br/>
+    <label for="nombre">Nombre</label>
+    <input type="text" name="nombre" th:field="*{nombre}">
+     <br/>
+    <label for="apellido">Apellido</label>
+    <input type="text" name="apellido" th:field="*{apellido}">
+     <br/>
+    <label for="mail">Email</label>
+    <input type="email" name="mail" th:field="*{mail}">
+     <br/>
+    <label for="telefono">Teléfono</label>
+    <input type="number" name="telefono" th:field="*{telefono}">
+     <br/>
+    <label for="clave">Clave</label>
+    <input type="password" name="clave" th:field="*{clave}">
+       
+    <br/>
+    <hr/>
+        <button type="submit" name="guardar" >Guardar</button>
+        
+    </form>
+</body>
+</html>

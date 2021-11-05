@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en"
 xmlns="http://www.w3.org/1999/xhtml"
- xmlns:th="https://www.thymeleaf.org">
+ xmlns:th="https://www.thymeleaf.org"
+ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -29,5 +30,11 @@ xmlns="http://www.w3.org/1999/xhtml"
 
     <br>
     <a th:href="@{/}">Inicio</a>| <a th:href="@{/autor/listaAutores}">Volver</a> 
+    
+    <div>
+    <b>Usuario:</b> <span sec:authentication="name"> Nombre Usuario </span>
+    <br>
+    <b>Rol:</b> <span sec:authentication="principal.authorities"> Rol Usuario</span>
+    </div>
 </body>
 </html>
