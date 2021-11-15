@@ -1,5 +1,6 @@
 package com.libreriaWebApp.controladores;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +11,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.libreriaWebApp.entidades.Autor;
-
+import com.libreriaWebApp.entidades.Usuario;
+import com.libreriaWebApp.enums.Role;
 import com.libreriaWebApp.errores.ErrorServicio;
 import com.libreriaWebApp.repositorios.AutorRepositorio;
 import com.libreriaWebApp.servicios.AutorServicio;
+import com.libreriaWebApp.servicios.UsuarioServicio;
 
 @Controller
 @RequestMapping("/autor")
@@ -22,13 +25,26 @@ public class AutorController {
 	private AutorRepositorio autorRp;
 	@Autowired
 	private AutorServicio autorSv;
+	@Autowired
+	private UsuarioServicio usuarioSv;
 
 	@GetMapping("/listaAutores")
-	public String listaAutores(Autor autor, ModelMap model) {
+	public String listaAutores(Autor autor, ModelMap model, Principal user) {
 		List<Autor> autores;
+		Usuario usuario = usuarioSv.buscarUsuarioPorMail(user.getName());
 		try {
-			autores = autorSv.buscarTodosAutores();
-			model.put("autores", autores);
+			System.out.println(usuario.getRoles().contains(Role.ROLE_ADMIN));
+			if(usuario.getRoles().contains(Role.ROLE_ADMIN)) {
+				
+				autores = autorSv.buscarTodosAutores();
+				
+				model.put("autores", autores);
+			}else {
+				autores = autorSv.buscarTodosAutoresActivos();
+				model.put("autores", autores);
+			}
+			
+			
 		} catch (ErrorServicio e) {
 			e.printStackTrace();
 		}
@@ -66,6 +82,40 @@ public class AutorController {
 			e.printStackTrace();
 		}
 		return "redirect:/autor/listaAutores";
+	}
+	
+	@GetMapping("/darBaja/{id}")
+	public String darBajaAutor(Autor autor) {
+		
+		try {
+			autor = autorRp.buscarAutorPorId(autor.getId());
+			autor.setAlta(false);
+			
+			autorSv.guardarAutorObj(autor);
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return "redirect:/autor/listaAutores" ;
+	}
+	
+	@GetMapping("/darAlta/{id}")
+	public String darAltaAutor(Autor autor) {
+		
+		try {
+			autor = autorRp.buscarAutorPorId(autor.getId());
+			autor.setAlta(true);
+			
+			autorSv.guardarAutorObj(autor);
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return "redirect:/autor/listaAutores" ;
 	}
 
 }

@@ -49,6 +49,10 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
         <li>
         	<a class = "button"  th:href ="@{/editorial/listaEditoriales}">Lista de Editoriales</a>
         </li>
+        
+        <li>
+        	<a class = "button"  th:href ="@{/prestamo/prestamoLibros}">Prestamo de Libros</a>
+        </li>
         <li>
         	<form action="#" th:action="@{/logout}" method = "POST">
         		<button type="submit" name="logout" >Logout</button>

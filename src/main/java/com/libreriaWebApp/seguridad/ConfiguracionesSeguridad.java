@@ -43,8 +43,21 @@ public class ConfiguracionesSeguridad extends WebSecurityConfigurerAdapter {
     public void configurerGlobal(AuthenticationManagerBuilder build) throws Exception{
         build.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
+    
+    /*@Override
+    protected void configure (AuthenticationManagerBuilder auth) throws Exception {
+    	auth.inMemoryAuthentication()
+    	.withUser("admin") //este es tu nombre de usuario de admin
+    	.password("{noop} 123") // 123 es la clave 
+    	.roles("USER","ADMIN")
+    	.and()
+    	.withUser("user") // este ees tu nombre de usuario de user comun
+    	.password("{noop} 123") // 123 es la clave 
+    	.roles("USER")
+    	;
+    }
 	
-	
+	*/
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests().antMatchers("/autor/modificarAutor/**"

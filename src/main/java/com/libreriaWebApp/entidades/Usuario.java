@@ -11,8 +11,6 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -134,7 +132,7 @@ public class Usuario {
 	
 	@Override
 	public String toString() {
-		return "Cliente [id=" + id + ", dni=" + dni + ", nombre=" + nombre + ", apellido=" + apellido + ", telefono="
+		return "Usuario [id=" + id + ", dni=" + dni + ", nombre=" + nombre + ", apellido=" + apellido + ", telefono="
 				+ telefono + ", alta=" + alta + "]";
 	}
 

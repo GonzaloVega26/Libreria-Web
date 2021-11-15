@@ -31,6 +31,9 @@ public class UsuarioServicio implements UserDetailsService{
 		usuarioRp.save(usuario);
 	}
 	
+	public Usuario buscarUsuarioPorMail(String mail) {
+		return usuarioRp.buscarUsuarioPorMail(mail);
+	}
 	private void validate(Usuario usuario) throws ErrorServicio {
 		if(usuario.getNombre().isBlank() || usuario.getNombre() == null) {
 			throw new ErrorServicio("El nombre no es válido");

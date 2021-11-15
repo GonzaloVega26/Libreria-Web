@@ -1,6 +1,7 @@
 package com.libreriaWebApp.servicios;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,6 +63,23 @@ public class LibroServicio {
 			throw new ErrorServicio("El autor y/o la editorial no son válidos");
 		}
 	}
+	
+	@Transactional(readOnly = true)
+	public List<Libro> buscarAllLibrosPorAlta() throws ErrorServicio{
+		
+		return libroRp.buscarLibroPorAlta(true);
+	}
+	@Transactional(readOnly = true)
+	public Libro buscaraLibroPorID(String id) throws ErrorServicio{
+		Optional<Libro> respuesta = libroRp.findById(id);
+		if(respuesta.isPresent()) {
+			return respuesta.get();
+		}else {
+			throw new ErrorServicio("Libro no válido");
+		}
+				
+	}
+
 
 	private void validacion(String isbn, String nombre, Integer anio, Integer ejemplares, Integer ejemplaresPrestados,
 			Integer ejemplaresRestantes) throws ErrorServicio {
@@ -89,6 +107,22 @@ public class LibroServicio {
 		}
 
 	}
+	
+	public void prestarLibro(Libro libro) throws ErrorServicio {
+		if(libro == null) {
+			throw new ErrorServicio("El libro no es válido");
+		}
+		if(libro.getEjemplaresRestantes()<=0) {
+			throw new ErrorServicio("No quedean más libros para prestar");
+		}
+		
+		libro.setEjemplaresPrestados(libro.getEjemplaresPrestados()+1);
+		libro.setEjemplaresRestantes(libro.getEjemplaresRestantes()-1);
+		
+		guardarLibroObj(libro);
+	}
+	
+	
 
 	
 }

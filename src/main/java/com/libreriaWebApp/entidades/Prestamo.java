@@ -6,8 +6,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 public class Prestamo {
@@ -16,7 +19,13 @@ public class Prestamo {
 	@GeneratedValue(generator = "uuid")
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
 	private String id;
+
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+	@Temporal(TemporalType.DATE)
 	private Date fechaPrestamo;
+
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+	@Temporal(TemporalType.DATE)
 	private Date fechaDevolucion;
 	private Boolean alta;
 	@OneToOne
@@ -26,15 +35,9 @@ public class Prestamo {
 
 	public Prestamo() {
 		this.alta = true;
-	}
-
-	public Prestamo( Date fechaPrestamo, Date fechaDevolucion, Libro libro, Usuario usuario) {
+		this.fechaPrestamo= new Date();
 		
-		this.fechaPrestamo = fechaPrestamo;
-		this.fechaDevolucion = fechaDevolucion;
-		this.alta = true;
-		this.libro = libro;
-		this.usuario = usuario;
+
 	}
 
 	public String getId() {
@@ -57,7 +60,7 @@ public class Prestamo {
 		return libro;
 	}
 
-	public Usuario getCliente() {
+	public Usuario getUsuario() {
 		return usuario;
 	}
 
@@ -81,14 +84,17 @@ public class Prestamo {
 		this.libro = libro;
 	}
 
-	public void setCliente(Usuario usuario) {
+	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
 
 	@Override
 	public String toString() {
 		return "Prestamo [id=" + id + ", fechaPrestamo=" + fechaPrestamo + ", fechaDevolucion=" + fechaDevolucion
-				+ ", alta=" + alta + ", libro=" + libro + ", cliente=" + usuario + "]";
+				+ ", alta=" + alta + ", libro=" + libro + ", usuario=" + usuario + "]";
 	}
+
+	
+	
 
 }

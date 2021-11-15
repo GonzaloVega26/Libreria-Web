@@ -3,11 +3,10 @@ package com.libreriaWebApp.servicios;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.libreriaWebApp.entidades.Autor;
 import com.libreriaWebApp.entidades.Libro;
@@ -33,6 +32,7 @@ public class AutorServicio {
 	public void guardarAutorObj(Autor autor) throws ErrorServicio {
 		validate(autor.getNombre(), autor.getApellido());
 		autorRp.save(autor);
+		
 	}
 	@Transactional
 	public void agregarLibroToAutor(Libro libro) {
@@ -60,15 +60,14 @@ public class AutorServicio {
 	
 	public List<Autor> buscarTodosAutores() throws ErrorServicio{
 		List<Autor> autores = autorRp.findAll(Sort.by("nombre"));
-		Iterator<Autor> it = autores.iterator();
-		while (it.hasNext()) {
-			Autor autor = (Autor) it.next();
-			if(autor.getAlta() == false) {
-				it.remove();
-			}
-		}
 		
 		return  autores;
+	}
+	@Transactional(readOnly = true)
+	public List<Autor> buscarTodosAutoresActivos() throws ErrorServicio{
+		List<Autor> autoresActivos = autorRp.buscarAutoresPorAlta(true);
+		
+		return  autoresActivos;
 	}
 	
 	public void darBajaAutor(Autor autor) throws ErrorServicio {

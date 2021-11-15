@@ -5,6 +5,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
 </head>
 <body>
 
@@ -14,30 +15,47 @@
     <input type="hidden" name="id" th:field="*{id}">
     <input type="hidden" name="roles" th:field="*{roles}">
     
-     
-     
-    <label for="dni">DNI</label>
+    <div class="form-row">
+    <div class="col-md-6 mb-3">
+      <label for="nombre">Nombre</label>
+      <input type="text" class="form-control" name="nombre" id="nombre" th:field="*{nombre}" required>
+      <div class="valid-feedback">
+        Looks good!
+      </div>
+    </div>
+    <div class="col-md-6 mb-3">
+      <label for="apellido">Last name</label>
+      <input type="text" class="form-control" name="apellido" id="apellido" th:field="*{apellido}" required>
+      <div class="valid-feedback">
+        Looks good!
+      </div>
+    </div>
+  </div>
+     <div class="form-group">
+     <label for="dni">DNI</label>
     <input type="text" name="dni" th:field="*{dni}">
     <br/>
-    <label for="nombre">Nombre</label>
-    <input type="text" name="nombre" th:field="*{nombre}">
+     <label for="telefono">Tel&eacutefono</label>
+    <input type="tel" name="telefono" th:field="*{telefono}">
      <br/>
-    <label for="apellido">Apellido</label>
-    <input type="text" name="apellido" th:field="*{apellido}">
-     <br/>
-    <label for="mail">Email</label>
-    <input type="email" name="mail" th:field="*{mail}">
-     <br/>
-    <label for="telefono">Teléfono</label>
-    <input type="number" name="telefono" th:field="*{telefono}">
-     <br/>
-    <label for="clave">Clave</label>
-    <input type="password" name="clave" th:field="*{clave}">
-       
+      <label for="mail">Email</label>
+    <input type="email" name ="mail" id="mail" th:field="*{mail}">
     <br/>
+    <label for="clave">Clave</label>
+    <input type="password" name="clave" id="clave" 
+     aria-describedby="passwordHelpInline" th:field="*{clave}">
+    <small id="passwordHelpInline" class="text-muted">
+      Debe contener al menos 6 caracteres. </small>
+    
+  </div>
+
     <hr/>
-        <button type="submit" name="guardar" >Guardar</button>
+    <button type="button" class="btn btn-secondary">Registrarse</button>
+   
         
     </form>
+    
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
 </body>
 </html>

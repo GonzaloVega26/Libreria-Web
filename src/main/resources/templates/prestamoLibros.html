@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html
+xmlns:th="https://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>Carga los datos del libro que quieres reservar</h1>
+<form th:action="@{/prestamo/guardarPrestamo}" th:object="${prestamo}" method="POST">
+
+ 
+ <input type="hidden" name="usuario" th:field="*{usuario}" th:value="name">
+ <label for="fechaPrestamo">fechaPrestamo</label>
+ <input type="date" name="fechaPrestamo" th:field="*{fechaPrestamo}" th:value="${#temporals.format(fromDepartureDate,'yyyy-MM-dd')}" readonly="readonly">
+     <br >
+    <label for="fechaDevolucion">fechaDevolucion</label>
+    <input type="date" name="fechaDevolucion" th:field="*{fechaDevolucion}" th:value="${#temporals.format(fromDepartureDate,'yyyy-MM-dd')}">
+    <br/>
+    
+    <label for="libro">Libro</label>
+    <input type="hidden" readonly="readonly" th:field="*{libro}" >
+    <input type="text" th:value="${libro.nombre}">
+    <small th:text="'Ejemplares restantes ' + ${libro.ejemplaresRestantes}"></small>
+    <br/>
+    <br/>
+    
+    
+    <input type="hidden" name="id" th:field="*{usuario}">
+    <br>
+       
+    <br/>
+    <hr/>
+        <button type="submit" name="guardar" >Guardar</button>
+</form>
+<br>
+
+<h1>Devolver libros</h1>
+
+
+</body>
+</html>
